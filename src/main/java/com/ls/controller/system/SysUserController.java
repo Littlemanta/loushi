@@ -63,7 +63,7 @@ public class SysUserController {
      */
     @GetMapping("/system/user/list")
     @ResponseBody
-    public Map<String,Object> listByUser(@RequestBody  SysUser user, Integer page, Integer pageSize){
+    public Map<String,Object> listByUser(SysUser user, Integer page, Integer pageSize){
         Map<String,Object> map = new HashMap<>();
         log.info("当前第{}页,每页展示{}条数据,条件查询的用户信息：{}",page,pageSize,user.toString());
 
@@ -72,9 +72,19 @@ public class SysUserController {
         //查询用户总条数
         Integer count = userService.getCount(user);
         log.info("用户列表总共有{}条",count);
-
+        //map.put("errorInfo","测试获取用户列表请求");
         map.put("data",sysUsers);
         map.put("count",count);
+        map.put("code",0);
+        return map;
+    }
+
+    @GetMapping("/getUserInfo")
+    @ResponseBody
+    public Map<String,Object> getUserInfo(SysUser user){
+        Map<String,Object> map = new HashMap<>();
+        SysUser sysUser = userService.getByUserId(user.getUserId());
+        map.put("data",sysUser);
         map.put("code",0);
         return map;
     }

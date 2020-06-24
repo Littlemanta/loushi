@@ -79,7 +79,7 @@ public class ShiroConfig {
         // 设置退出登陆，配置退出过滤器，其中的具体的退出代码Shiro已经帮我们实现了
         map.put("/user/logout", "logout");
         // 对所有用户认证
-        map.put("/**", "authc");
+        map.put("/**", "anon");
 
         bean.setFilterChainDefinitionMap(map);
         return bean;
